@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.gms.google-services'
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -38,6 +39,7 @@ android {
 
 dependencies {
 
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -53,6 +55,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -84,4 +89,18 @@ dependencies {
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    def nav_version = "2.5.3"
+
+
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+
 }
