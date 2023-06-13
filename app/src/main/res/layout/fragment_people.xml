@@ -1,27 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_people"
     android:background="@color/background">
 
-    <!-- Icon Back -->
-    <ImageView
-        android:id="@+id/icon_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
-        android:layout_alignParentStart="true"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/back" />
 
-    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title"
+        android:text="@string/profile"
         android:textSize="24sp"
+        android:fontFamily="@font/psemibold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="20dp"/>
 
     <!-- Profile Image -->
     <ImageView
@@ -54,6 +48,8 @@
         android:layout_marginTop="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:cardCornerRadius="21dp"
+
         android:elevation="4dp"
         android:radius="8dp">
 
@@ -105,6 +101,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:cardCornerRadius="21dp"
         android:elevation="4dp"
         android:radius="8dp">
 
@@ -156,6 +153,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:cardCornerRadius="21dp"
         android:elevation="4dp"
         android:radius="8dp">
 
@@ -207,6 +205,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:cardCornerRadius="21dp"
         android:elevation="4dp"
         android:radius="8dp">
 

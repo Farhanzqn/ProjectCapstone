@@ -1,32 +1,37 @@
 package com.bangkit.tursik.ui.fragment.detail
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.bangkit.tursik.Place
 import com.bangkit.tursik.R
+import com.bangkit.tursik.ViewPagerAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+private const val ARG_PLACE = "place"
+
 class DetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var place: Place
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            place = it.getParcelable(ARG_PLACE)!!
         }
     }
 
@@ -34,26 +39,72 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_detail, container, false)
+
+        val buttonWishlist = view.findViewById<Button>(R.id.button_sheet)
+        buttonWishlist.setOnClickListener {
+            showBottomSheet()
+        }
+
+        return view
+    }
+
+    private fun showBottomSheet() {
+        val bottomSheet = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.buttom_sheet_layout, null)
+        bottomSheet.setContentView(view)
+
+
+        val behavior = BottomSheetBehavior.from(view.parent as View)
+        behavior.peekHeight = getExpandedHeight()
+
+        bottomSheet.setOnShowListener {
+            val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
+            val viewPager = view.findViewById<ViewPager2>(R.id.viewPager2)
+
+            val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+            viewPagerAdapter.addFragment(DetailDescriptionFragment())
+            viewPagerAdapter.addFragment(DetailReviewFragment())
+            viewPagerAdapter.addFragment(DetailPhotoFragment())
+
+            viewPager.adapter = viewPagerAdapter
+
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "Description"
+                    1 -> tab.text = "Review"
+                    2 -> tab.text = "Photo"
+                }
+            }.attach()
+
+            val nestedScrollView = view.findViewById<NestedScrollView>(R.id.nestedScrollView)
+            nestedScrollView.isNestedScrollingEnabled = true
+        }
+
+        bottomSheet.show()
+    }
+
+    private fun getExpandedHeight(): Int {
+        val displayMetrics = DisplayMetrics()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val display = requireContext().display
+            display?.getRealMetrics(displayMetrics)
+        } else {
+            val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+        }
+        val screenHeight = displayMetrics.heightPixels
+        val expandedHeight = screenHeight / 2
+
+        return expandedHeight
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(place: Place) =
             DetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelable(ARG_PLACE, place)
                 }
             }
     }

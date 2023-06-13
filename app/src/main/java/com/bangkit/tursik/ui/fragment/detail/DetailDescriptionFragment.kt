@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bangkit.tursik.Place
 import com.bangkit.tursik.R
 
-
-class DetailPhotoFragment : Fragment() {
+class DetailDescriptionFragment : Fragment() {
     private lateinit var place: Place
 
     companion object {
-        fun newInstance(place: Place): DetailPhotoFragment {
-            val fragment = DetailPhotoFragment()
+        fun newInstance(place: Place): DetailDescriptionFragment {
+            val fragment = DetailDescriptionFragment()
             fragment.place = place
             return fragment
         }
@@ -24,9 +24,7 @@ class DetailPhotoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_detail_photo, container, false)
-        // Dapatkan referensi ke ImageView atau RecyclerView
-        // Populasi ImageView atau RecyclerView dengan data foto dari place.photos
+        val view = inflater.inflate(R.layout.fragment_detail_description, container, false)
         return view
     }
 }
