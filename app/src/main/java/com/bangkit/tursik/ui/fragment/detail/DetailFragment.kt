@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.bangkit.tursik.Place
 import com.bangkit.tursik.R
 import com.bangkit.tursik.ViewPagerAdapter
+import com.bangkit.tursik.data.response.DataItem
+import com.bangkit.tursik.data.response.DataItemDestinationRecomended
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
@@ -42,10 +43,10 @@ class DetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
         val buttonWishlist = view.findViewById<Button>(R.id.button_sheet)
-        buttonWishlist.setOnClickListener {
+        /*buttonWishlist.setOnClickListener {
             showBottomSheet()
-        }
-
+        }*/
+        showBottomSheet()
         return view
     }
 
@@ -90,7 +91,8 @@ class DetailFragment : Fragment() {
             val display = requireContext().display
             display?.getRealMetrics(displayMetrics)
         } else {
-            val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val windowManager =
+                requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
             windowManager.defaultDisplay.getMetrics(displayMetrics)
         }
         val screenHeight = displayMetrics.heightPixels
@@ -99,13 +101,4 @@ class DetailFragment : Fragment() {
         return expandedHeight
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(place: Place) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_PLACE, place)
-                }
-            }
-    }
 }
