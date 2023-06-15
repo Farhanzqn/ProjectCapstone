@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.tursik.data.adapter.AdapterList
 import com.bangkit.tursik.R
 import com.bangkit.tursik.databinding.FragmentPopularBinding
-import com.bangkit.tursik.ui.fragment.detail.DetailFragment
 import com.bangkit.tursik.data.response.DataItem
 import com.bangkit.tursik.other.Result
+import com.bangkit.tursik.ui.fragment.detail.FullscreenBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +44,7 @@ class PopularFragment : Fragment() {
         adapterList = AdapterList(object : AdapterList.OnItemClickListener {
             override fun onItemClick(place: DataItem) {
                 navigateToDetailFragment()
+
             }
         })
         recyclerView.adapter = adapterList
@@ -81,11 +82,12 @@ class PopularFragment : Fragment() {
 
 
     private fun navigateToDetailFragment() {
-        val detailFragment = DetailFragment()
+        val detailFragment = FullscreenBottomSheetFragment()
         requireActivity().supportFragmentManager
             .beginTransaction()
             .replace(R.id.buttom_nav, detailFragment)
             .addToBackStack(null)
             .commit()
+
     }
 }

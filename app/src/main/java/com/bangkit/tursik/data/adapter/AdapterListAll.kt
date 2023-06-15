@@ -69,4 +69,5 @@ class AdapterListAll(private val onItemClickListener: OnItemClickListener) :
             return oldItem == newItem
         }
     }
+
 }

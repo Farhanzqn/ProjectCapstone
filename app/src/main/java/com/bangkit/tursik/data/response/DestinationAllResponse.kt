@@ -1,6 +1,8 @@
 package com.bangkit.tursik.data.response
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
 data class DestinationAllResponse(
 
@@ -10,7 +12,7 @@ data class DestinationAllResponse(
 	@field:Json(name="status")
 	val status: String? = null
 )
-
+@Parcelize
 data class DataItemAll(
 
 	@field:Json(name="Regency")
@@ -30,4 +32,4 @@ data class DataItemAll(
 
 	@field:Json(name="Name")
 	val name: String? = null
-)
+): Parcelable

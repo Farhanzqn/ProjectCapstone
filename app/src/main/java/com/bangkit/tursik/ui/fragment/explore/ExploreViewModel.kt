@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bangkit.tursik.Place
+import com.bangkit.tursik.data.response.DataItemAll
 import com.bangkit.tursik.data.response.DestinationAlamResponse
 import com.bangkit.tursik.data.response.DestinationAllResponse
 import com.bangkit.tursik.data.response.DestinationPendidikanResponse
@@ -48,6 +50,7 @@ class ExploreViewModel @Inject constructor(
     private val _wisataSejarah = MutableLiveData<Result<DestinationSejarahResponse>>()
     val wisataSejarah: LiveData<Result<DestinationSejarahResponse>> get() = _wisataSejarah
 
+    private val destinationList: MutableList<DataItemAll> = mutableListOf()
     fun getDestinationAll() {
         _all.value = Result.Loading
         viewModelScope.launch {
@@ -84,5 +87,14 @@ class ExploreViewModel @Inject constructor(
             _wisataSejarah.value = getDestinationSejarahUseCase.getDestinationSejarah().last()
 
         }
+    }
+    fun searchDestinations(query: String): List<DataItemAll> {
+        val filteredList: MutableList<DataItemAll> = mutableListOf()
+        for (destination in destinationList) {
+            if (destination.name?.contains(query, ignoreCase = true) == true) {
+                filteredList.add(destination)
+            }
+        }
+        return filteredList
     }
  }

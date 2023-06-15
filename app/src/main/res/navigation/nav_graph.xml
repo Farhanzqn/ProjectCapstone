@@ -68,4 +68,5 @@
         android:name="com.bangkit.tursik.ui.fragment.explore.WisataReligiFragment"
         android:label="WisataReligiFragment"
         tools:layout="@layout/fragment_wisata_religi"/>
+
 </navigation>

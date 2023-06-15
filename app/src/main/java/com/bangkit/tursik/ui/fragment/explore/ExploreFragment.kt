@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.tursik.Place
 import com.bangkit.tursik.R
 import com.bangkit.tursik.data.adapter.AdapterListAll
 import com.bangkit.tursik.data.response.DataItemAll
@@ -33,7 +35,8 @@ class ExploreFragment : Fragment() {
 
     private val viewModel: ExploreViewModel by activityViewModels()
     private lateinit var progress: ProgressBar
-
+    private lateinit var searchView: SearchView
+    private var originalList: List<Place> = emptyList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +47,8 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         val layout = view.findViewById<LinearLayout>(R.id.exploreFragment)
         if (layout != null) {
@@ -68,7 +73,7 @@ class ExploreFragment : Fragment() {
                 navigateToWisataSejarahFragment()
             }
         } else {
-            // Tata letak belum diinflasi, lakukan penanganan kesalahan
+
         }
 
         recyclerView = binding.rvAll
@@ -80,8 +85,13 @@ class ExploreFragment : Fragment() {
         recyclerView.adapter = adapterListAll
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        val searchView = binding.searchView
 
         progress = binding.progressBar
+
+
+
+
 
         viewModel.all.observe(viewLifecycleOwner) { resource ->
             when (resource) {
@@ -108,7 +118,6 @@ class ExploreFragment : Fragment() {
                 }
             }
         }
-
         viewModel.getDestinationAll()
     }
 
